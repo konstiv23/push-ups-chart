@@ -1,59 +1,76 @@
 import { RootState } from "../../app/store";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getDemoInitialReps } from "./demoData";
 import { todaysDayNumber } from "../../utils/dateManipulation";
+/// <reference path="moving-averages.d.ts">
+import { ema } from "moving-averages";
 
-export class RepsDay {
-  public day: number;
-  public reps: number;
-
-  constructor(day: number, reps: number) {
-    this.day = Math.floor(day);
-    this.reps = reps;
-  }
-}
-
-export type RepsDays = RepsDay[];
+export type RepsDay = {
+  day: number;
+  reps: number;
+};
 
 export interface ChartState {
-  repsDays: RepsDays;
+  repsDays: RepsDay[];
   lengthInDays: number;
 }
 
 const initialState: ChartState = {
-  repsDays: getDemoInitialReps(60),
-  lengthInDays: 30
+  repsDays: getDemoInitialReps(30),
+  lengthInDays: 30,
 };
 
 export const chartSlice = createSlice({
   name: "chart",
   initialState,
   reducers: {
-    // increment: (state) => {
-    //   state.value += 1;
-    // },
-  }
+    incrementTodayByAmount: (state, action: PayloadAction<number>) => {
+      const latestRepsDay = state.repsDays[state.repsDays.length - 1];
+      const today = todaysDayNumber();
+      if (latestRepsDay.day === today) {
+        latestRepsDay.reps += action.payload;
+      } else {
+        state.repsDays.push({ day: today, reps: action.payload });
+      }
+    },
+  },
 });
 
-//export const { increment, decrement, incrementByAmount } = chartSlice.actions;
-
 export const selectRepsDays = (state: RootState) => {
-  const repsDays = state.chart.repsDays;
+  let repsDays = state.chart.repsDays;
+  repsDays = fillInZeroDays(repsDays, state.chart.lengthInDays);
+  const repsDaysWithMA = addMovAverage(repsDays);
+  return lastNDays(repsDaysWithMA, state.chart.lengthInDays);
+};
+
+function lastNDays(arr: RepsDayMA[], n: number) {
+  return arr.slice(Math.max(arr.length - n, 0));
+}
+
+function fillInZeroDays(repsDays: RepsDay[], lengthInDays: number) {
+  const withZeroDays: RepsDay[] = [];
   const repsDaysMap: { [id: string]: number } = {};
   repsDays.forEach((r) => (repsDaysMap[r.day] = r.reps));
-  const result: RepsDay[] = [];
   const today = todaysDayNumber();
-  const firstDay = Math.min(repsDays[0].day, today - state.chart.lengthInDays);
+  const firstDay = Math.min(repsDays[0].day, today - lengthInDays);
   for (let i = firstDay; i <= today; i++) {
     const reps = repsDaysMap[i] || 0;
-    result.push({ day: i, reps });
+    withZeroDays.push({ day: i, reps });
   }
-  const lastNDays = (arr: typeof result, n: number) =>
-    arr.slice(Math.max(arr.length - n, 0));
-  return lastNDays(result, state.chart.lengthInDays);
-};
+  return withZeroDays;
+}
+
+export type RepsDayMA = RepsDay & { movAverage: number };
+
+function addMovAverage(repsDays: RepsDay[]) {
+  const justReps = repsDays.map((r) => r.reps);
+  const myMa = ema(justReps, 14);
+  return repsDays.map((r, index) => ({ ...r, movAverage: myMa[index] }));
+}
 
 export const selectLengthInDays = (state: RootState) =>
   state.chart.lengthInDays;
 
 export default chartSlice.reducer;
+
+export const { incrementTodayByAmount } = chartSlice.actions;

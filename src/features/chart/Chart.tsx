@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useAppSelector } from "../../app/hooks";
-import { RepsDays, selectRepsDays } from "./chartSlice";
+import { RepsDayMA, selectRepsDays } from "./chartSlice";
 import { dayNumberToStr } from "../../utils/dateManipulation";
 import {
   LineChart,
@@ -8,20 +8,21 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip
+  Tooltip,
 } from "recharts";
 
 enum ChartFeeds {
   repsOnDay = "Push-Ups On Day",
   movAv = "Moving Average",
   repsLatest = "Push-Ups Latest",
-  movAvLatest = "Moving Average Latest"
+  movAvLatest = "Moving Average Latest",
 }
 
-function repDaysToPoints(repsDays: RepsDays) {
+function repDaysToPoints(repsDays: RepsDayMA[]) {
   return repsDays.map((r) => ({
     name: dayNumberToStr(r.day),
-    [ChartFeeds.repsOnDay]: r.reps
+    [ChartFeeds.repsOnDay]: r.reps,
+    [ChartFeeds.movAv]: r.movAverage,
   }));
 }
 
@@ -39,7 +40,7 @@ function Chart() {
           top: 5,
           right: 30,
           left: 20,
-          bottom: 5
+          bottom: 5,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
@@ -52,8 +53,16 @@ function Chart() {
           stroke="#82ca9d"
           strokeWidth={2}
           activeDot={{ r: 8 }}
+          isAnimationActive={false}
         />
-        {/*<Line type="monotone" dataKey={ChartFeeds.movAv} stroke="#8884d8" />*/}
+        <Line
+          type="monotone"
+          dataKey={ChartFeeds.movAv}
+          stroke="#039BE5"
+          strokeWidth={2}
+          dot={false}
+          isAnimationActive={false}
+        />
       </LineChart>
     </div>
   );
