@@ -16,7 +16,7 @@ export interface ChartState {
 }
 
 const initialState: ChartState = {
-  repsDays: getDemoInitialReps(30),
+  repsDays: getDemoInitialReps(60),
   lengthInDays: 30,
 };
 
@@ -65,7 +65,10 @@ export type RepsDayMA = RepsDay & { movAverage: number };
 function addMovAverage(repsDays: RepsDay[]) {
   const justReps = repsDays.map((r) => r.reps);
   const myMa = ema(justReps, 14);
-  return repsDays.map((r, index) => ({ ...r, movAverage: myMa[index] }));
+  return repsDays.map((r, index) => ({
+    ...r,
+    movAverage: Math.round(myMa[index]),
+  }));
 }
 
 export const selectLengthInDays = (state: RootState) =>

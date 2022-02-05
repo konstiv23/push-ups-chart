@@ -44,7 +44,7 @@ function Chart() {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="name" interval={5} />
         <YAxis />
         <Tooltip />
         <Line
