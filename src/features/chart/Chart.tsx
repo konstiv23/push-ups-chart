@@ -10,8 +10,9 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+import CustomTooltip from "../customTooltip/CustomTooltip";
 
-enum ChartFeeds {
+export enum ChartFeeds {
   repsOnDay = "Push-Ups On Day",
   movAv = "Moving Average",
   repsLatest = "Push-Ups Latest",
@@ -78,22 +79,23 @@ function Chart() {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" interval={5} />
         <YAxis />
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <Line
-          type="monotone"
           dataKey={ChartFeeds.repsOnDay}
+          type="monotone"
           stroke="#82ca9d"
           strokeWidth={2}
           activeDot={{ r: 8 }}
           isAnimationActive={false}
         />
         <Line
-          type="monotone"
           dataKey={ChartFeeds.movAv}
+          type="monotone"
           stroke="#039BE5"
           strokeWidth={2}
           dot={false}
           isAnimationActive={false}
+          activeDot={false}
         />
         <Line
           dataKey={ChartFeeds.repsLatest}
@@ -101,6 +103,7 @@ function Chart() {
           stroke="#82ca9d"
           strokeWidth={2}
           isAnimationActive={false}
+          activeDot={false}
         />
         <Line
           dataKey={ChartFeeds.movAvLatest}
@@ -108,6 +111,7 @@ function Chart() {
           stroke="#039BE5"
           strokeWidth={2}
           isAnimationActive={false}
+          activeDot={false}
         />
       </LineChart>
     </div>

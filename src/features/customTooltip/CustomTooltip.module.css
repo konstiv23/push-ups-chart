@@ -1,0 +1,11 @@
+.tooltip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  background-color: white;
+
+  padding: 3px 4px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
