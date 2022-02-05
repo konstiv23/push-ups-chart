@@ -11,6 +11,7 @@ import {
   Tooltip,
 } from "recharts";
 import CustomTooltip from "../customTooltip/CustomTooltip";
+import TodayStatus from "../todayStatus/TodayStatus";
 
 export enum ChartFeeds {
   repsOnDay = "Push-Ups On Day",
@@ -27,16 +28,22 @@ type Point = {
   [ChartFeeds.movAvLatest]?: number;
 };
 
+function getLatest(repsDaysMA: RepsDayMA[]) {
+  return {
+    reps: repsDaysMA[repsDaysMA.length - 1].reps,
+    movAv: repsDaysMA[repsDaysMA.length - 2].movAverage,
+  };
+}
+
 function repDaysToPoints(repsDays: RepsDayMA[]) {
   const points: Point[] = repsDays.map((r) => ({
     name: dayNumberToStr(r.day),
     [ChartFeeds.repsOnDay]: r.reps,
     [ChartFeeds.movAv]: r.movAverage,
   }));
-  points[points.length - 1][ChartFeeds.repsLatest] =
-    repsDays[repsDays.length - 1].reps;
-  points[points.length - 2][ChartFeeds.movAvLatest] =
-    repsDays[repsDays.length - 2].movAverage;
+  const latest = getLatest(repsDays);
+  points[points.length - 1][ChartFeeds.repsLatest] = latest.reps;
+  points[points.length - 2][ChartFeeds.movAvLatest] = latest.movAv;
   return points;
 }
 
@@ -62,7 +69,7 @@ class CustomizedLabel extends PureComponent<LabelProps | {}> {
 function Chart() {
   const repsDays = useAppSelector(selectRepsDays);
   const points = useMemo(() => repDaysToPoints(repsDays), [repsDays]);
-
+  const latest = getLatest(repsDays);
   return (
     <div>
       <LineChart
@@ -114,6 +121,7 @@ function Chart() {
           activeDot={false}
         />
       </LineChart>
+      <TodayStatus reps={latest.reps} movAv={latest.movAv} />
     </div>
   );
 }
