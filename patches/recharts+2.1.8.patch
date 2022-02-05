@@ -1,0 +1,12 @@
+diff --git a/node_modules/recharts/types/cartesian/Line.d.ts b/node_modules/recharts/types/cartesian/Line.d.ts
+index a08e696..c890c18 100644
+--- a/node_modules/recharts/types/cartesian/Line.d.ts
++++ b/node_modules/recharts/types/cartesian/Line.d.ts
+@@ -48,6 +48,7 @@ interface LineProps extends InternalLineProps {
+     animationEasing?: AnimationTiming;
+     animationId?: number;
+     id?: string;
++    label?: ReactElement;
+ }
+ export declare type Props = Omit<CurveProps, 'points' | 'pathRef'> & LineProps;
+ interface State {

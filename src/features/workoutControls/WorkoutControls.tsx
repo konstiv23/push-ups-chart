@@ -8,7 +8,7 @@ function WorkoutControls() {
   const complete = useCallback(() => {
     dispatch(incrementTodayByAmount(total));
     setTotal(0);
-  }, [total]);
+  }, [total, dispatch]);
   return (
     <>
       <div>{total}</div>

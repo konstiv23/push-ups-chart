@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { PureComponent, useMemo } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { RepsDayMA, selectRepsDays } from "./chartSlice";
 import { dayNumberToStr } from "../../utils/dateManipulation";
@@ -18,12 +18,44 @@ enum ChartFeeds {
   movAvLatest = "Moving Average Latest",
 }
 
+type Point = {
+  name: string;
+  [ChartFeeds.repsOnDay]: number;
+  [ChartFeeds.movAv]: number;
+  [ChartFeeds.repsLatest]?: number;
+  [ChartFeeds.movAvLatest]?: number;
+};
+
 function repDaysToPoints(repsDays: RepsDayMA[]) {
-  return repsDays.map((r) => ({
+  const points: Point[] = repsDays.map((r) => ({
     name: dayNumberToStr(r.day),
     [ChartFeeds.repsOnDay]: r.reps,
     [ChartFeeds.movAv]: r.movAverage,
   }));
+  points[points.length - 1][ChartFeeds.repsLatest] =
+    repsDays[repsDays.length - 1].reps;
+  points[points.length - 2][ChartFeeds.movAvLatest] =
+    repsDays[repsDays.length - 2].movAverage;
+  return points;
+}
+
+type LabelProps = {
+  x: number;
+  y: number;
+  stroke: string;
+  value: number;
+};
+
+class CustomizedLabel extends PureComponent<LabelProps | {}> {
+  render() {
+    const { x, y, stroke, value } = this.props as LabelProps;
+
+    return (
+      <text x={x} y={y} dy={-6} fill={stroke} fontSize={16} textAnchor="middle">
+        {value}
+      </text>
+    );
+  }
 }
 
 function Chart() {
@@ -61,6 +93,20 @@ function Chart() {
           stroke="#039BE5"
           strokeWidth={2}
           dot={false}
+          isAnimationActive={false}
+        />
+        <Line
+          dataKey={ChartFeeds.repsLatest}
+          label={<CustomizedLabel />}
+          stroke="#82ca9d"
+          strokeWidth={2}
+          isAnimationActive={false}
+        />
+        <Line
+          dataKey={ChartFeeds.movAvLatest}
+          label={<CustomizedLabel />}
+          stroke="#039BE5"
+          strokeWidth={2}
           isAnimationActive={false}
         />
       </LineChart>
