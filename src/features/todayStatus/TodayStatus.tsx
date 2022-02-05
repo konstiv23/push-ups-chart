@@ -12,27 +12,27 @@ function TodayStatus({ reps, movAv }: ComparisonProps) {
     const diffPlusOne = diff + 1;
     if (reps < movAv) {
       return (
-        <span>
+        <p>
           <strong>{diffPlusOne}</strong> more {pluralize("time", diffPlusOne)}{" "}
           left to beat moving average
-        </span>
+        </p>
       );
     } else if (reps > movAv) {
       return (
-        <span>
+        <p>
           Moving average beat by <strong>{diff}</strong>{" "}
           {pluralize("time", diff)}
-        </span>
+        </p>
       );
     } else {
       return (
-        <span>
+        <p>
           Already <strong>even</strong> with moving average today
-        </span>
+        </p>
       );
     }
   }, [reps, movAv]);
-  return <div>{message}</div>;
+  return message;
 }
 
 export default TodayStatus;
