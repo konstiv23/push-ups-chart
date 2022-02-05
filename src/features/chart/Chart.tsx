@@ -87,7 +87,7 @@ function Chart() {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" interval={5} />
-        <YAxis />
+        <YAxis tickCount={8} />
         <Tooltip content={<CustomTooltip />} />
         <Line
           dataKey={ChartFeeds.repsOnDay}
