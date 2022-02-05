@@ -43,7 +43,9 @@ function repDaysToPoints(repsDays: RepsDayMA[]) {
   }));
   const latest = getLatest(repsDays);
   points[points.length - 1][ChartFeeds.repsLatest] = latest.reps;
-  points[points.length - 2][ChartFeeds.movAvLatest] = latest.movAv;
+  if (latest.reps !== latest.movAv) {
+    points[points.length - 2][ChartFeeds.movAvLatest] = latest.movAv;
+  }
   return points;
 }
 
