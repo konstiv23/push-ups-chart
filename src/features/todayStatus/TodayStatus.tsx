@@ -9,19 +9,17 @@ type ComparisonProps = {
 function TodayStatus({ reps, movAv }: ComparisonProps) {
   const message = useMemo(() => {
     const diff = Math.abs(reps - movAv);
-    const diffPlusOne = diff + 1;
     if (reps < movAv) {
       return (
         <p>
-          <strong>{diffPlusOne}</strong> more {pluralize("time", diffPlusOne)}{" "}
-          left to beat moving average.
+          <strong>{diff + 1}</strong> more push-ups left to beat moving average.
         </p>
       );
     } else if (reps > movAv) {
       return (
         <p>
           Moving average beat by <strong>{diff}</strong>{" "}
-          {pluralize("time", diff)}.
+          {pluralize("push-up", diff)}.
         </p>
       );
     } else {
