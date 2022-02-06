@@ -33,9 +33,7 @@
 
 .plus-minus-slider {
   display: flex;
+  align-items: center;
+  gap: 5.8vw;
   margin: 0 7.5vw;
-}
-
-.slider {
-  flex-grow: 1;
 }

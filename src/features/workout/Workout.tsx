@@ -1,8 +1,11 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { incrementTodayByAmount } from "../chart/chartSlice";
+import MyRange from "../MyRange/MyRange";
 import styles from "./Workout.module.css";
+
+const MAX_REPS_PER_WORKOUT = 300;
 
 type TwoRowProps = {
   amount: number;
@@ -28,17 +31,23 @@ function TwoButtonRow({ amount, changeTotal }: TwoRowProps) {
   );
 }
 
+function clamp(num: number, min: number, max: number) {
+  return num <= min ? min : num >= max ? max : num;
+}
+
 function Workout() {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const changeTotal = useCallback(
     (amount: number, event: React.MouseEvent<HTMLElement>) => {
-      setTotal(total + amount);
+      setTotal(clamp(total + amount, 0, MAX_REPS_PER_WORKOUT));
       event.currentTarget.blur();
     },
     [total]
   );
+
   const complete = useCallback(() => {
     dispatch(incrementTodayByAmount(total));
     setTotal(0);
@@ -55,7 +64,7 @@ function Workout() {
         >
           -
         </button>
-        <span className={styles.slider}>slider</span>
+        <MyRange total={total} setTotal={setTotal} max={MAX_REPS_PER_WORKOUT} />
         <button
           onClick={(event) => changeTotal(1, event)}
           className={styles.button1}

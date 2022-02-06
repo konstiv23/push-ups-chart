@@ -41,3 +41,10 @@ button:active {
   background-color: #008568;
   outline: none;
 }
+
+div[role="slider"],
+div[role="slider"]:active,
+div[role="slider"]:focus {
+  border: none;
+  outline: none;
+}
