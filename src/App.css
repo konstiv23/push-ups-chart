@@ -1,9 +1,10 @@
 .App {
   text-align: center;
   height: 100%;
+  width: 100%;
   max-width: 475px;
-  margin: auto;
   overflow: hidden;
+  flex-grow: 1;
 }
 
 @media (orientation: landscape) {

@@ -14,7 +14,8 @@ body,
 }
 
 #root {
-  display: flex;
+  display: grid;
+  place-items: center;
 }
 
 code {
