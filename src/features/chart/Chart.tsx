@@ -22,8 +22,8 @@ export enum ChartFeeds {
   movAvLatest = "Moving Average Latest",
 }
 
-const MOV_AV_COLOR = "#039BE5";
 const REPS_COLOR = "#81D6A0";
+const MOV_AV_COLOR = "#0293DB";
 
 type Point = {
   name: string;
@@ -94,7 +94,7 @@ function Chart() {
           left: -20,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid strokeDasharray="3 3" vertical={false} />
         <XAxis dataKey="name" interval={5} />
         <YAxis tickCount={8} />
         <Tooltip content={<CustomTooltip />} />
