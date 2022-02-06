@@ -3,9 +3,9 @@ import styles from "./StartButton.module.css";
 
 function StartButton() {
   return (
-    <button className={styles["start-button"]}>
-      <Link to="workout">Start</Link>
-    </button>
+    <Link to="workout">
+      <button className={styles["start-button"]}>Start</button>
+    </Link>
   );
 }
 
