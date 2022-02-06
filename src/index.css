@@ -13,6 +13,11 @@ body,
   height: 100%;
 }
 
+svg:not(:root) {
+  /* Without this if last value is ~205 and is max, label is clipped */
+  overflow: visible !important;
+}
+
 #root {
   display: grid;
   place-items: center;
