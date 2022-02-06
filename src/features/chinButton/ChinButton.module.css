@@ -1,0 +1,32 @@
+.chin-button {
+  display: grid;
+  place-items: center;
+  flex-grow: 1;
+  background-color: transparent;
+  position: relative;
+  border-radius: 0;
+}
+
+.circle {
+  display: grid;
+  place-items: center;
+  background-color: #13c29c;
+  width: 47%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  font-size: 5rem;
+  z-index: 2;
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: calc(100% + 1px);
+  background-color: white;
+  z-index: 1;
+}
+
+.circle:active,
+.circle:focus {
+  background-color: #1bb190;
+}

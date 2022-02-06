@@ -30,6 +30,7 @@ function MyRange({ total, setTotal, max }: MyRangeProps) {
             width: "100%",
             borderRadius: "3px",
             backgroundColor: "#ccc",
+            userSelect: "none",
           }}
         >
           {children}
@@ -44,6 +45,7 @@ function MyRange({ total, setTotal, max }: MyRangeProps) {
             backgroundColor: "#009f7d",
             borderRadius: "50%",
             border: "none",
+            userSelect: "none",
           }}
         />
       )}

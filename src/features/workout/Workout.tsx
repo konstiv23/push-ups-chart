@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { incrementTodayByAmount } from "../chart/chartSlice";
+import ChinButton from "../chinButton/ChinButton";
 import MyRange from "../MyRange/MyRange";
 import styles from "./Workout.module.css";
 
@@ -56,7 +57,11 @@ function Workout() {
 
   return (
     <main className={styles.workout}>
-      <div>{total}</div>
+      <ChinButton
+        total={total}
+        max={MAX_REPS_PER_WORKOUT}
+        changeTotal={changeTotal}
+      />
       <div className={styles["plus-minus-slider"]}>
         <button
           onClick={(event) => changeTotal(-1, event)}
