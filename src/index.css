@@ -26,14 +26,14 @@ input[type="reset"] {
   font: inherit;
   cursor: pointer;
   outline: inherit;
-  height: 12.8vw;
+  height: 48px;
   color: white;
   background-color: #009f7d;
   font-weight: 500;
-  border-radius: 2.8vw;
+  border-radius: 11px;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  font-size: 4.93vw;
+  font-size: 1.3rem;
 }
 
 button:focus,

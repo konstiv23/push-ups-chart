@@ -9,7 +9,6 @@ type ToolTipProps = {
 
 export default function CustomTooltip(props: ToolTipProps | {}) {
   const { active, payload, label } = props as ToolTipProps;
-  if (payload.length) console.log(payload[0]);
 
   if (active && payload && payload.length) {
     const pUps = payload.find((p) => p.name === ChartFeeds.repsOnDay);

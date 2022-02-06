@@ -75,12 +75,12 @@ function Chart() {
   return (
     <div>
       <LineChart
-        width={document.body.clientWidth}
+        width={Math.min(document.body.clientWidth, 475)}
         height={400}
         data={points}
         margin={{
           top: 5,
-          right: 13,
+          right: 14,
           left: -20,
           bottom: 5,
         }}

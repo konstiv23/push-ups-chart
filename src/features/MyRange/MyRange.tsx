@@ -39,8 +39,8 @@ function MyRange({ total, setTotal, max }: MyRangeProps) {
         <div
           {...props}
           style={{
-            height: "6.4vw",
-            width: "6.4vw",
+            height: "25px",
+            width: "24px",
             backgroundColor: "#009f7d",
             borderRadius: "50%",
             border: "none",
