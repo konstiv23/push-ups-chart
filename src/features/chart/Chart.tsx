@@ -74,6 +74,9 @@ function Chart() {
   const latest = getLatest(repsDays);
   return (
     <div>
+      <div style={{ textAlign: "left", marginLeft: "8px", lineHeight: "40px" }}>
+        Last {points.length} days:
+      </div>
       <LineChart
         width={Math.min(document.body.clientWidth, 475)}
         height={400}
@@ -82,7 +85,6 @@ function Chart() {
           top: 5,
           right: 14,
           left: -20,
-          bottom: 5,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
