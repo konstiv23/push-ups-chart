@@ -3,6 +3,7 @@
   height: 100%;
   max-width: 475px;
   margin: auto;
+  overflow: hidden;
 }
 
 .Home {
