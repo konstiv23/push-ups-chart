@@ -3,8 +3,9 @@ import { useAppSelector } from "../../app/hooks";
 import { RepsDayMA, selectRepsDays } from "./chartSlice";
 import { dayNumberToStr } from "../../utils/dateManipulation";
 import {
-  LineChart,
+  ComposedChart,
   Line,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -22,7 +23,7 @@ export enum ChartFeeds {
 }
 
 const MOV_AV_COLOR = "#039BE5";
-const REPS_COLOR = "#82ca9d";
+const REPS_COLOR = "#81D6A0";
 
 type Point = {
   name: string;
@@ -83,7 +84,7 @@ function Chart() {
       >
         Last {points.length} days:
       </div>
-      <LineChart
+      <ComposedChart
         width={Math.min(document.body.clientWidth, 475)}
         height={400}
         data={points}
@@ -98,12 +99,9 @@ function Chart() {
         <YAxis tickCount={8} />
         <Tooltip content={<CustomTooltip />} />
         <Legend align="right" />
-        <Line
+        <Bar
           dataKey={ChartFeeds.repsOnDay}
-          type="monotone"
-          stroke={REPS_COLOR}
-          strokeWidth={2}
-          activeDot={{ r: 8 }}
+          fill={REPS_COLOR}
           isAnimationActive={false}
         />
         <Line
@@ -133,7 +131,7 @@ function Chart() {
           activeDot={false}
           legendType="none"
         />
-      </LineChart>
+      </ComposedChart>
       <Legend />
       <TodayStatus reps={latest.reps} movAv={latest.movAv} />
     </div>
