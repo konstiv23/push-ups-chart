@@ -6,6 +6,13 @@
   overflow: hidden;
 }
 
+@media (orientation: landscape) {
+  .App {
+    overflow: auto;
+    height: 570px;
+  }
+}
+
 .Home {
   height: 100%;
   display: flex;
