@@ -4,3 +4,10 @@
   max-width: 475px;
   margin: auto;
 }
+
+.Home {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

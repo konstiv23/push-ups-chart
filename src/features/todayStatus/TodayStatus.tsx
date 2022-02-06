@@ -14,25 +14,25 @@ function TodayStatus({ reps, movAv }: ComparisonProps) {
       return (
         <p>
           <strong>{diffPlusOne}</strong> more {pluralize("time", diffPlusOne)}{" "}
-          left to beat moving average
+          left to beat moving average.
         </p>
       );
     } else if (reps > movAv) {
       return (
         <p>
           Moving average beat by <strong>{diff}</strong>{" "}
-          {pluralize("time", diff)}
+          {pluralize("time", diff)}.
         </p>
       );
     } else {
       return (
         <p>
-          Already <strong>even</strong> with moving average today
+          Already <strong>even</strong> with moving average today.
         </p>
       );
     }
   }, [reps, movAv]);
-  return message;
+  return <div style={{ lineHeight: "40px" }}>{message}</div>;
 }
 
 export default TodayStatus;

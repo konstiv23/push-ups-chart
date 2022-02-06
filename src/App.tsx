@@ -6,10 +6,10 @@ import Workout from "./features/workout/Workout";
 
 function Home() {
   return (
-    <>
+    <div className="Home">
       <Chart />
       <StartButton />
-    </>
+    </div>
   );
 }
 

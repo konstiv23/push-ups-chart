@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import styles from "./StartButton.module.css";
 
 function StartButton() {
   return (
-    <button>
-      <Link to="workout">Workout</Link>
+    <button className={styles["start-button"]}>
+      <Link to="workout">Start</Link>
     </button>
   );
 }

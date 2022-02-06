@@ -1,0 +1,10 @@
+.start-button {
+  box-sizing: border-box;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.start-button a {
+  color: white;
+  text-decoration: none;
+}

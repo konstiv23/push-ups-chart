@@ -79,7 +79,7 @@ function Chart() {
   return (
     <div>
       <div
-        style={{ textAlign: "left", paddingLeft: "8px", lineHeight: "40px" }}
+        style={{ textAlign: "left", paddingLeft: "8px", lineHeight: "45px" }}
       >
         Last {points.length} days:
       </div>
