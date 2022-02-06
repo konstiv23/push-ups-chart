@@ -9,6 +9,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
 } from "recharts";
 import CustomTooltip from "../customTooltip/CustomTooltip";
 import TodayStatus from "../todayStatus/TodayStatus";
@@ -19,6 +20,9 @@ export enum ChartFeeds {
   repsLatest = "Push-Ups Latest",
   movAvLatest = "Moving Average Latest",
 }
+
+const MOV_AV_COLOR = "#039BE5";
+const REPS_COLOR = "#82ca9d";
 
 type Point = {
   name: string;
@@ -74,7 +78,9 @@ function Chart() {
   const latest = getLatest(repsDays);
   return (
     <div>
-      <div style={{ textAlign: "left", marginLeft: "8px", lineHeight: "40px" }}>
+      <div
+        style={{ textAlign: "left", paddingLeft: "8px", lineHeight: "40px" }}
+      >
         Last {points.length} days:
       </div>
       <LineChart
@@ -91,10 +97,11 @@ function Chart() {
         <XAxis dataKey="name" interval={5} />
         <YAxis tickCount={8} />
         <Tooltip content={<CustomTooltip />} />
+        <Legend align="right" />
         <Line
           dataKey={ChartFeeds.repsOnDay}
           type="monotone"
-          stroke="#82ca9d"
+          stroke={REPS_COLOR}
           strokeWidth={2}
           activeDot={{ r: 8 }}
           isAnimationActive={false}
@@ -102,7 +109,7 @@ function Chart() {
         <Line
           dataKey={ChartFeeds.movAv}
           type="monotone"
-          stroke="#039BE5"
+          stroke={MOV_AV_COLOR}
           strokeWidth={2}
           dot={false}
           isAnimationActive={false}
@@ -111,20 +118,23 @@ function Chart() {
         <Line
           dataKey={ChartFeeds.repsLatest}
           label={<CustomizedLabel />}
-          stroke="#82ca9d"
+          stroke={REPS_COLOR}
           strokeWidth={2}
           isAnimationActive={false}
           activeDot={false}
+          legendType="none"
         />
         <Line
           dataKey={ChartFeeds.movAvLatest}
           label={<CustomizedLabel />}
-          stroke="#039BE5"
+          stroke={MOV_AV_COLOR}
           strokeWidth={2}
           isAnimationActive={false}
           activeDot={false}
+          legendType="none"
         />
       </LineChart>
+      <Legend />
       <TodayStatus reps={latest.reps} movAv={latest.movAv} />
     </div>
   );
