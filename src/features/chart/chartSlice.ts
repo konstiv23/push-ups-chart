@@ -15,9 +15,14 @@ export interface ChartState {
   lengthInDays: number;
 }
 
+let initialRepsDays = JSON.parse(localStorage.getItem("repsDays") || "[]");
+if (!initialRepsDays.length) {
+  initialRepsDays = getDemoInitialReps(60);
+}
+
 const initialState: ChartState = {
-  repsDays: getDemoInitialReps(60),
-  lengthInDays: 30,
+  repsDays: initialRepsDays,
+  lengthInDays: 30
 };
 
 export const chartSlice = createSlice({
@@ -32,8 +37,8 @@ export const chartSlice = createSlice({
       } else {
         state.repsDays.push({ day: today, reps: action.payload });
       }
-    },
-  },
+    }
+  }
 });
 
 export const selectRepsDays = (state: RootState) => {
@@ -67,7 +72,7 @@ function addMovAverage(repsDays: RepsDay[]) {
   const myMa = ema(justReps, 14);
   return repsDays.map((r, index) => ({
     ...r,
-    movAverage: Math.round(myMa[index]),
+    movAverage: Math.round(myMa[index])
   }));
 }
 
