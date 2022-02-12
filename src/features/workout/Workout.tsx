@@ -53,7 +53,7 @@ function Workout() {
     dispatch(incrementTodayByAmount(total));
     setTotal(0);
     navigate("/", { replace: true });
-  }, [total, dispatch]);
+  }, [total, dispatch, useCallback]);
 
   return (
     <main className={styles.workout}>

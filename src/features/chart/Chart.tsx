@@ -1,6 +1,5 @@
 import { PureComponent, useMemo } from "react";
 import { useAppSelector } from "../../app/hooks";
-import { RepsDayMA, selectRepsDays } from "./chartSlice";
 import { dayNumberToStr } from "../../utils/dateManipulation";
 import {
   ComposedChart,
@@ -14,6 +13,7 @@ import {
 } from "recharts";
 import CustomTooltip from "../customTooltip/CustomTooltip";
 import TodayStatus from "../todayStatus/TodayStatus";
+import { RepsDayMA, selectRepsDaysMA } from "./selectRepsDaysMA";
 
 export enum ChartFeeds {
   repsOnDay = "Push-Ups On Day",
@@ -74,7 +74,7 @@ class CustomizedLabel extends PureComponent<LabelProps | {}> {
 }
 
 function Chart() {
-  const repsDays = useAppSelector(selectRepsDays);
+  const repsDays = useAppSelector(selectRepsDaysMA);
   const points = useMemo(() => repDaysToPoints(repsDays), [repsDays]);
   const latest = getLatest(repsDays);
   return (
