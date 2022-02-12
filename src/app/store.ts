@@ -2,17 +2,21 @@ import {
   configureStore,
   ThunkAction,
   Action,
-  combineReducers
+  combineReducers,
 } from "@reduxjs/toolkit";
 import { persistMiddleware } from "./persistMiddleware";
 import chartReducer from "../features/chart/chartSlice";
+import settingsReducer from "../features/settings/settingsSlice";
 
-const rootReducer = combineReducers({ chart: chartReducer });
+const rootReducer = combineReducers({
+  chart: chartReducer,
+  settings: settingsReducer,
+});
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(persistMiddleware)
+    getDefaultMiddleware().concat(persistMiddleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

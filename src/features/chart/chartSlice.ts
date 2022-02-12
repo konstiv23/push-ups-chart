@@ -10,7 +10,6 @@ export type RepsDay = {
 
 export interface ChartState {
   repsDays: RepsDay[];
-  lengthInDays: number;
 }
 
 let initialRepsDays = JSON.parse(localStorage.getItem("repsDays") || "[]");
@@ -20,7 +19,6 @@ if (!initialRepsDays.length) {
 
 const initialState: ChartState = {
   repsDays: initialRepsDays,
-  lengthInDays: 30,
 };
 
 export const chartSlice = createSlice({
@@ -30,22 +28,18 @@ export const chartSlice = createSlice({
     incrementTodayByAmount: (state, action: PayloadAction<number>) => {
       const latestRepsDay = state.repsDays[state.repsDays.length - 1];
       const today = todaysDayNumber();
-      if (latestRepsDay.day === today) {
+      if (latestRepsDay?.day === today) {
         latestRepsDay.reps += action.payload;
       } else {
         state.repsDays.push({ day: today, reps: action.payload });
       }
     },
+    completelyClear: (state) => {
+      state.repsDays = [];
+    },
   },
 });
 
-export const selectRepsDays = (state: RootState) => {
-  return state.chart.repsDays;
-};
-
-export const selectLengthInDays = (state: RootState) =>
-  state.chart.lengthInDays;
-
 export default chartSlice.reducer;
 
-export const { incrementTodayByAmount } = chartSlice.actions;
+export const { incrementTodayByAmount, completelyClear } = chartSlice.actions;
