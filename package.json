@@ -1,6 +1,7 @@
 {
   "name": "push-ups-chart",
   "version": "0.1.0",
+  "homepage": "https://konstiv23.github.io/push-ups-chart",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.1",
@@ -14,6 +15,7 @@
     "@types/react-dom": "^16.9.14",
     "@types/react-redux": "^7.1.22",
     "@types/react-router-dom": "^5.3.3",
+    "gh-pages": "^3.2.3",
     "moving-averages": "^4.0.6",
     "patch-package": "^6.4.7",
     "pluralize": "^8.0.0",
@@ -27,6 +29,8 @@
     "typescript": "~4.1.5"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
