@@ -10,15 +10,7 @@ import DemoAlert from "./features/demoAlert/DemoAlert";
 function Home() {
   return (
     <main className="Home">
-      <Link to="/settings">
-        <img
-          className="settings-icon"
-          src="/settings-gear.svg"
-          alt="settings"
-        />
-      </Link>
       <DemoAlert />
-
       <Chart />
       <StartButton />
     </main>

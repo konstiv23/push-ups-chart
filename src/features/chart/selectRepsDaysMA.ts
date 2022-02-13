@@ -1,16 +1,19 @@
 import { RootState } from "../../app/store";
 /// <reference path="moving-averages.d.ts">
-import { ema } from "moving-averages";
+import { ema, ma } from "moving-averages";
 import { todaysDayNumber } from "../../utils/dateManipulation";
 import { RepsDay } from "./chartSlice";
 import { getDemoInitialReps } from "./demoData";
+import { MAType } from "../settings/settingsSlice";
 
 export type RepsDayMA = RepsDay & { movAverage: number };
+
+const demoData = getDemoInitialReps(60);
 
 export const selectRepsDaysMA = ({ chart, settings }: RootState) => {
   let repsDays = chart.repsDays;
   if (!settings.demoDataCleared) {
-    repsDays = getDemoInitialReps(60);
+    repsDays = demoData;
   }
   if (!repsDays.length) {
     repsDays = [{ day: todaysDayNumber(), reps: 0 }];
@@ -22,7 +25,11 @@ export const selectRepsDaysMA = ({ chart, settings }: RootState) => {
     settings.smoothingInterval
   );
   repsDays = fillInZeroDays(repsDays, settings.maxDaysToShow); // zero days in-between and after
-  let repsDaysWithMA = addMovAverage(repsDays, settings.smoothingInterval);
+  let repsDaysWithMA = addMovAverage(
+    repsDays,
+    settings.smoothingInterval,
+    settings.maType
+  );
   repsDaysWithMA = filterLeadingZeroDays(repsDaysWithMA);
   return lastNDays(repsDaysWithMA, settings.maxDaysToShow);
 };
@@ -75,9 +82,18 @@ function fillInZeroDays(repsDays: RepsDay[], lengthInDays: number) {
   return withZeroDays;
 }
 
-function addMovAverage(repsDays: RepsDay[], smoothingInterval: number) {
+function addMovAverage(
+  repsDays: RepsDay[],
+  smoothingInterval: number,
+  maType: MAType
+) {
   const justReps = repsDays.map((r) => r.reps);
-  const myMa = ema(justReps, smoothingInterval);
+  let myMa: number[] = [];
+  if (maType == "MA") {
+    myMa = ma(justReps, smoothingInterval);
+  } else {
+    myMa = ema(justReps, smoothingInterval);
+  }
   return repsDays.map((r, index) => ({
     ...r,
     movAverage: Math.round(myMa[index]),

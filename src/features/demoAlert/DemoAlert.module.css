@@ -1,11 +1,11 @@
 .demo-alert {
+  max-width: 475px;
   position: absolute;
   top: 1px;
-  left: 0;
   background-color: yellow;
   width: 100%;
   min-height: 43px;
-  margin: 0;
+  margin: auto;
   padding: 7px 18px;
   box-sizing: border-box;
   border-radius: 7px;

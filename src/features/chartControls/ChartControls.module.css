@@ -1,0 +1,28 @@
+.chart-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: "left";
+  padding: 0 8px;
+  line-height: "45px";
+}
+
+.smoothing-ma-settings {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.select {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.settings-icon {
+  width: 22px;
+  opacity: 63%;
+  padding-right: 5px;
+  margin-left: 7px;
+}

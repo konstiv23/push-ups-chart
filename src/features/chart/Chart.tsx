@@ -14,6 +14,7 @@ import {
 import CustomTooltip from "../customTooltip/CustomTooltip";
 import TodayStatus from "../todayStatus/TodayStatus";
 import { RepsDayMA, selectRepsDaysMA } from "./selectRepsDaysMA";
+import ChartControls from "../chartControls/ChartControls";
 
 export enum ChartFeeds {
   repsOnDay = "Push-Ups On Day",
@@ -99,11 +100,7 @@ function Chart() {
   const latest = getLatest(repsDays);
   return (
     <div>
-      <div
-        style={{ textAlign: "left", paddingLeft: "8px", lineHeight: "45px" }}
-      >
-        Last {points.length} days:
-      </div>
+      <ChartControls numDays={points.length} />
       <ComposedChart
         width={Math.min(document.body.clientWidth, 475)}
         height={400}
