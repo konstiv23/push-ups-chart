@@ -15,6 +15,7 @@ import CustomTooltip from "../customTooltip/CustomTooltip";
 import TodayStatus from "../todayStatus/TodayStatus";
 import { RepsDayMA, selectRepsDaysMA } from "./selectRepsDaysMA";
 import ChartControls from "../chartControls/ChartControls";
+import clamp from "../../utils/clamp";
 
 export enum ChartFeeds {
   repsOnDay = "Push-Ups On Day",
@@ -103,7 +104,7 @@ function Chart() {
       <ChartControls numDays={points.length} />
       <ComposedChart
         width={Math.min(document.body.clientWidth, 475)}
-        height={400}
+        height={clamp(document.body.clientHeight - 168, 250, 500)}
         data={points}
         margin={{
           top: 5,

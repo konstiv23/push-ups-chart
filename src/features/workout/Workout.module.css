@@ -5,6 +5,7 @@
 .workout {
   display: flex;
   height: 100%;
+  min-height: 500px;
   flex-direction: column;
   justify-content: flex-end;
   gap: var(--gap);

@@ -3,16 +3,7 @@
   height: 100%;
   width: 100%;
   max-width: 475px;
-  overflow: hidden;
   flex-grow: 1;
-}
-
-@media (orientation: landscape) {
-  .App {
-    overflow: auto;
-    height: 570px;
-    overflow-x: hidden;
-  }
 }
 
 .Home {
