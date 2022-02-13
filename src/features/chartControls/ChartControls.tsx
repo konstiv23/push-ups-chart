@@ -64,7 +64,7 @@ function SettingButton() {
     <Link to="/settings">
       <img
         className={styles["settings-icon"]}
-        src="/settings-gear.svg"
+        src={`${process.env.PUBLIC_URL}/settings-gear.svg`}
         alt="settings"
       />
     </Link>
