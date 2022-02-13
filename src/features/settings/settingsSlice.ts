@@ -14,7 +14,7 @@ const initialState: settingsState = {
   maxDaysToShow: 30,
   smoothingInterval: 14,
   demoDataCleared: false,
-  maType: "EMA",
+  maType: "MA",
 };
 
 const loadedState = JSON.parse(localStorage.getItem("settings") || "{}");

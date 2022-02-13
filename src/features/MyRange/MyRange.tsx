@@ -8,7 +8,6 @@ type MyRangeProps = {
 };
 
 function MyRange({ total, setTotal, max }: MyRangeProps) {
-  const clampedTotal = total;
   const [valueObj, setValuesObj] = useState({ values: [total] });
   useEffect(() => setValuesObj({ values: [total] }), [total]);
   function setAll(values: number[]) {

@@ -125,7 +125,7 @@ function Chart() {
           dataKey={ChartFeeds.movAv}
           type="monotone"
           stroke={MOV_AV_COLOR}
-          strokeWidth={2}
+          strokeWidth={3}
           dot={false}
           isAnimationActive={false}
           activeDot={false}

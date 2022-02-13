@@ -51,7 +51,7 @@ function Workout() {
       setTotal(clamp(total + amount, 0, MAX_REPS_PER_WORKOUT));
       event.currentTarget.blur();
     },
-    [total]
+    [total, dispatch]
   );
 
   const complete = useCallback(() => {
