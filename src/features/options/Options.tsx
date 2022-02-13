@@ -35,7 +35,7 @@ function Options() {
       >
         <img
           className={styles["github-logo"]}
-          src="/github-logo.svg"
+          src={`${process.env.PUBLIC_URL}/github-logo.svg`}
           alt="Github logo"
         />
         Source code on Github
