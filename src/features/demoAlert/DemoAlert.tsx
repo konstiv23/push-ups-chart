@@ -1,6 +1,4 @@
-import { useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectDemoCleared } from "../settings/settingsSlice";
 import styles from "./DemoAlert.module.css";

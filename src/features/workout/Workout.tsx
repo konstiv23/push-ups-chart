@@ -44,14 +44,14 @@ function Workout() {
 
   useEffect(() => {
     dispatch(setDemoCleared());
-  }, []);
+  }, [dispatch, navigate]);
 
   const changeTotal = useCallback(
     (amount: number, event: React.MouseEvent<HTMLElement>) => {
       setTotal(clamp(total + amount, 0, MAX_REPS_PER_WORKOUT));
       event.currentTarget.blur();
     },
-    [total, dispatch]
+    [total, dispatch, navigate]
   );
 
   const complete = useCallback(() => {

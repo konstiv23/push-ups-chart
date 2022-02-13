@@ -17,7 +17,7 @@ function SmoothingSelect() {
     (event: React.FormEvent<HTMLSelectElement>) => {
       dispatch(setSmoothingInterval(parseInt(event.currentTarget.value) || 14));
     },
-    [settingsSmoothing, dispatch]
+    [dispatch]
   );
   return (
     <div>
@@ -44,7 +44,7 @@ function MaEmaSelect() {
     (event: React.FormEvent<HTMLSelectElement>) => {
       dispatch(setMaType((event.currentTarget.value || "EMA") as MAType));
     },
-    [maSettings, dispatch]
+    [dispatch]
   );
   return (
     <select

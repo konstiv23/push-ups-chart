@@ -89,7 +89,7 @@ function addMovAverage(
 ) {
   const justReps = repsDays.map((r) => r.reps);
   let myMa: number[] = [];
-  if (maType == "MA") {
+  if (maType === "MA") {
     myMa = ma(justReps, smoothingInterval);
   } else {
     myMa = ema(justReps, smoothingInterval);

@@ -2,7 +2,9 @@ import { useCallback } from "react";
 import styles from "./ChinButton.module.css";
 
 // "Bike, Bell Ding, Single, 01-01.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org (modified)
-var ding = new Audio("484344__inspectorj__bike-bell-ding-single-01-01.mp3");
+var ding = new Audio(
+  `${process.env.PUBLIC_URL}/484344__inspectorj__bike-bell-ding-single-01-01.mp3`
+);
 
 type CButtonProps = {
   total: number;
@@ -20,7 +22,7 @@ function ChinButton({ total, max, changeTotal }: CButtonProps) {
         ding.play();
       }
     },
-    [total]
+    [total, changeTotal, max]
   );
 
   return (
