@@ -47,15 +47,18 @@ function MaEmaSelect() {
     [dispatch]
   );
   return (
-    <select
-      name="MA-EMA"
-      className={styles["select"]}
-      defaultValue={maSettings}
-      onChange={handleChange}
-    >
-      <option value="MA">MA</option>
-      <option value="EMA">EMA</option>
-    </select>
+    <div>
+      {/* Don't remove wrapper above, or MA will be 3 pixels higher than Smoothing in Chrome. */}
+      <select
+        name="MA-EMA"
+        className={styles["select"]}
+        defaultValue={maSettings}
+        onChange={handleChange}
+      >
+        <option value="MA">MA</option>
+        <option value="EMA">EMA</option>
+      </select>
+    </div>
   );
 }
 
