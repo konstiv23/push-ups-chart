@@ -1,28 +1,51 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { completelyClear } from "../chart/chartSlice";
+import { setDemoCleared } from "../settings/settingsSlice";
 import styles from "./Options.module.css";
 
-function Options() {
+type ModalProps = {
+  hideModal: () => void;
+};
+
+function MyConfirmModal({ hideModal }: ModalProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const complete = useCallback(() => {
-    const confirmed = window.confirm(
-      "Are you sure you want to clear all data?"
-    );
-    if (confirmed) {
-      dispatch(completelyClear());
-      navigate("/", { replace: true });
-    }
-  }, [dispatch, navigate]);
+  function handleNo() {
+    hideModal();
+  }
+
+  function handleYes() {
+    dispatch(completelyClear());
+    dispatch(setDemoCleared());
+    navigate("/", { replace: true });
+  }
 
   return (
-    <main className={styles.settings}>
+    <div className={styles["modal-wrapper"]}>
+      <section className={styles.modal}>
+        <h3>Clear Data</h3>
+        <div>Are you sure?</div>
+        <div className={styles["confirm-buttons"]}>
+          <button onClick={handleNo}>No</button>
+          <button onClick={handleYes}>Yes</button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function Options() {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <main className={styles.options}>
+      {showModal && <MyConfirmModal hideModal={() => setShowModal(false)} />}
       <h1>Options</h1>
       <div className={styles.hr} />
-      <button onClick={complete}>Clear All Data</button>
+      <button onClick={() => setShowModal(true)}>Clear All Data</button>
       <div className={styles.hr} />
       <p>
         Developer email:{" "}

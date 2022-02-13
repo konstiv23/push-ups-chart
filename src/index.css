@@ -21,6 +21,7 @@ svg:not(:root) {
 #root {
   display: grid;
   place-items: center;
+  position: relative;
 }
 
 code {
