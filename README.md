@@ -1,5 +1,7 @@
 # Push-Ups Chart
 
+[Use The App](https://konstiv23.github.io/push-ups-chart)
+
 This app will chart how many push-ups you do per day with a moving average (MA) to focus on maintaining good numbers over longer periods of time, instead of obsessing with missed days or absolute records.
 
 Stack:

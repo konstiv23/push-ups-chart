@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { incrementTodayByAmount } from "../chart/chartSlice";
 import ChinButton from "../chinButton/ChinButton";
 import MyRange from "../MyRange/MyRange";
-import { selectDemoCleared, setDemoCleared } from "../settings/settingsSlice";
+import { setDemoCleared } from "../settings/settingsSlice";
 import styles from "./Workout.module.css";
 
 const MAX_REPS_PER_WORKOUT = 300;
