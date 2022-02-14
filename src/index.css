@@ -38,6 +38,7 @@ input[type="reset"] {
   cursor: pointer;
   outline: inherit;
   height: 48px;
+  min-width: 48px;
   color: white;
   background-color: #009f7d;
   font-weight: 600;

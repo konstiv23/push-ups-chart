@@ -1,6 +1,7 @@
 .chin-button {
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-grow: 1;
   background-color: transparent;
   position: relative;
@@ -11,8 +12,8 @@
   display: grid;
   place-items: center;
   background-color: #13c29c;
-  width: 47%;
-  aspect-ratio: 1;
+  width: 190px;
+  height: 190px;
   border-radius: 50%;
   font-size: 5rem;
   z-index: 2;
