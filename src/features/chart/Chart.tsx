@@ -73,6 +73,26 @@ class CustomizedLabel extends PureComponent<LabelProps | {}> {
   }
 }
 
+function tickInterval(points: Point[]) {
+  const length = points.length;
+  if (length < 5) {
+    return undefined;
+  }
+  if (length < 11) {
+    return 1;
+  }
+  if (length < 16) {
+    return 2;
+  }
+  if (length < 23) {
+    return 3;
+  }
+  if (length < 29) {
+    return 4;
+  }
+  return 5;
+}
+
 function Chart() {
   const repsDays = useAppSelector(selectRepsDaysMA);
   const points = useMemo(() => repDaysToPoints(repsDays), [repsDays]);
@@ -95,7 +115,7 @@ function Chart() {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
-        <XAxis dataKey="name" interval={5} />
+        <XAxis dataKey="name" interval={tickInterval(points)} />
         <YAxis tickCount={8} />
         <Tooltip content={<CustomTooltip />} />
         <Legend align="right" />
