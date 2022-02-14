@@ -6,22 +6,23 @@ import { RepsDay } from "./chartSlice";
 
 export type RepsDayMA = RepsDay & { movAverage: number };
 
-export const selectRepsDaysMA = (state: RootState) => {
-  let repsDays = state.chart.repsDays;
+export const selectRepsDaysMA = ({ chart, settings }: RootState) => {
+  let repsDays = chart.repsDays;
   if (!repsDays.length) {
     repsDays = [{ day: todaysDayNumber(), reps: 0 }];
   }
   repsDays = prependZeroDays(
     repsDays,
-    state.settings.maxDaysToShow,
-    state.settings.smoothingInterval
+    settings.maxDaysToShow,
+    settings.smoothingInterval
   );
-  repsDays = fillInZeroDays(repsDays, state.settings.maxDaysToShow);
-  const repsDaysWithMA = addMovAverage(repsDays);
-  return lastNDays(repsDaysWithMA, state.settings.maxDaysToShow);
+  repsDays = fillInZeroDays(repsDays, settings.maxDaysToShow); // zero days in-between
+  let repsDaysWithMA = addMovAverage(repsDays, settings.smoothingInterval);
+  repsDaysWithMA = filterLeadingZeroDays(repsDaysWithMA);
+  return lastNDays(repsDaysWithMA, settings.maxDaysToShow);
 };
 
-function prependZeroDays(
+function prependZeroDays( //needed to start MA right, filtered later
   repsDays: RepsDay[],
   maxDaysToShow: number,
   smoothingInterval: number
@@ -35,7 +36,21 @@ function prependZeroDays(
   return newRepsDays;
 }
 
-function lastNDays(arr: RepsDayMA[], n: number) {
+function filterLeadingZeroDays(repsDaysMAs: RepsDayMA[]) {
+  // When there's still only a few days of data, show only them,
+  // but a minimum of 2
+  const firstNonZero = repsDaysMAs.findIndex((r) => r.reps > 0);
+  if (firstNonZero === -1) {
+    // all zero days
+    return lastNDays(repsDaysMAs, 2);
+  } else if (firstNonZero === repsDaysMAs.length - 1) {
+    // only today has reps
+    return lastNDays(repsDaysMAs, 2);
+  }
+  return repsDaysMAs.slice(firstNonZero);
+}
+
+function lastNDays<ArrayMembrer>(arr: ArrayMembrer[], n: number) {
   return arr.slice(Math.max(arr.length - n, 0));
 }
 
@@ -52,14 +67,12 @@ function fillInZeroDays(repsDays: RepsDay[], lengthInDays: number) {
     const reps = repsDaysMap[i] || 0;
     withZeroDays.push({ day: i, reps });
   }
-  console.log(todaysDayNumber(), withZeroDays);
-  console.log(new Date());
   return withZeroDays;
 }
 
-function addMovAverage(repsDays: RepsDay[]) {
+function addMovAverage(repsDays: RepsDay[], smoothingInterval: number) {
   const justReps = repsDays.map((r) => r.reps);
-  const myMa = ema(justReps, 14);
+  const myMa = ema(justReps, smoothingInterval);
   return repsDays.map((r, index) => ({
     ...r,
     movAverage: Math.round(myMa[index]),
