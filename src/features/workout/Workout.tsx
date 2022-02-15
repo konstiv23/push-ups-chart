@@ -1,9 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { incrementTodayByAmount } from "../chart/chartSlice";
 import ChinButton from "../chinButton/ChinButton";
 import MyRange from "../MyRange/MyRange";
+import { selectDemoCleared, setDemoCleared } from "../settings/settingsSlice";
 import styles from "./Workout.module.css";
 
 const MAX_REPS_PER_WORKOUT = 300;
@@ -40,6 +41,10 @@ function Workout() {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(setDemoCleared());
+  }, []);
 
   const changeTotal = useCallback(
     (amount: number, event: React.MouseEvent<HTMLElement>) => {

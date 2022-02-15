@@ -1,6 +1,4 @@
-import { RootState } from "../../app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getDemoInitialReps } from "./demoData";
 import { todaysDayNumber } from "../../utils/dateManipulation";
 
 export type RepsDay = {
@@ -13,9 +11,6 @@ export interface ChartState {
 }
 
 let initialRepsDays = JSON.parse(localStorage.getItem("repsDays") || "[]");
-if (!initialRepsDays.length) {
-  initialRepsDays = getDemoInitialReps(60);
-}
 
 const initialState: ChartState = {
   repsDays: initialRepsDays,

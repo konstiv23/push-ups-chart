@@ -5,6 +5,7 @@ import StartButton from "./features/startButton/StartButton";
 import Workout from "./features/workout/Workout";
 import Settings from "./features/settings/Settings";
 import { Link } from "react-router-dom";
+import DemoAlert from "./features/demoAlert/DemoAlert";
 
 function Home() {
   return (
@@ -16,6 +17,8 @@ function Home() {
           alt="settings"
         />
       </Link>
+      <DemoAlert />
+
       <Chart />
       <StartButton />
     </main>

@@ -1,0 +1,36 @@
+.demo-alert {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  background-color: yellow;
+  width: 100%;
+  min-height: 43px;
+  margin: 0;
+  padding: 7px 18px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  border: 1px solid #888;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 5px 5px hsla(0, 0%, 0%, 0.07);
+}
+
+.demo-alert:visited {
+  color: black;
+}
+
+.demo-alert:active {
+  background-color: rgb(245, 245, 0);
+}
+
+.demo-alert > p {
+  margin: 0;
+}
+
+.demo-alert:active {
+  color: black;
+}

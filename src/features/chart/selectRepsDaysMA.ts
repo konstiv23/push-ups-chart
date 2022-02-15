@@ -3,26 +3,31 @@ import { RootState } from "../../app/store";
 import { ema } from "moving-averages";
 import { todaysDayNumber } from "../../utils/dateManipulation";
 import { RepsDay } from "./chartSlice";
+import { getDemoInitialReps } from "./demoData";
 
 export type RepsDayMA = RepsDay & { movAverage: number };
 
 export const selectRepsDaysMA = ({ chart, settings }: RootState) => {
   let repsDays = chart.repsDays;
+  if (!settings.demoDataCleared) {
+    repsDays = getDemoInitialReps(60);
+  }
   if (!repsDays.length) {
     repsDays = [{ day: todaysDayNumber(), reps: 0 }];
   }
+  // Needed to start MA right, filtered later
   repsDays = prependZeroDays(
     repsDays,
     settings.maxDaysToShow,
     settings.smoothingInterval
   );
-  repsDays = fillInZeroDays(repsDays, settings.maxDaysToShow); // zero days in-between
+  repsDays = fillInZeroDays(repsDays, settings.maxDaysToShow); // zero days in-between and after
   let repsDaysWithMA = addMovAverage(repsDays, settings.smoothingInterval);
   repsDaysWithMA = filterLeadingZeroDays(repsDaysWithMA);
   return lastNDays(repsDaysWithMA, settings.maxDaysToShow);
 };
 
-function prependZeroDays( //needed to start MA right, filtered later
+function prependZeroDays(
   repsDays: RepsDay[],
   maxDaysToShow: number,
   smoothingInterval: number
