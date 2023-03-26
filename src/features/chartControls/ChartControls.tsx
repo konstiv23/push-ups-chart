@@ -7,6 +7,8 @@ import {
   selectSmoothing,
   setMaType,
   setSmoothingInterval,
+  setMaxDaysToShow,
+  selectMaxDaysToShow,
 } from "../settings/settingsSlice";
 import styles from "./ChartControls.module.css";
 
@@ -74,10 +76,37 @@ function SettingButton() {
   );
 }
 
+function TimeSpan() {
+  const maxDays = useAppSelector(selectMaxDaysToShow);
+  const dispatch = useAppDispatch();
+  const handleChange = useCallback(
+    (event: React.FormEvent<HTMLSelectElement>) => {
+      dispatch(setMaxDaysToShow(parseInt(event.currentTarget.value) || 30));
+    },
+    [dispatch]
+  );
+
+  return (
+    <div>
+      <label htmlFor="timespan">Timespan: </label>
+      <select
+        name="timespan"
+        id="timespan"
+        className={styles["select"]}
+        defaultValue={`${maxDays}`}
+        onChange={handleChange}
+      >
+        <option value="30">30 days</option>
+        <option value="365">365 days</option>
+      </select>
+    </div>
+  );
+}
+
 function ChartControls({ numDays }: { numDays: number }) {
   return (
     <section className={styles["chart-controls"]}>
-      <span>Last {numDays} days:</span>
+      <TimeSpan />
       <span className={styles["smoothing-ma-settings"]}>
         <SmoothingSelect />
         <MaEmaSelect />
