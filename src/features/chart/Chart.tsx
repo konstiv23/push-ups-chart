@@ -74,25 +74,17 @@ class CustomizedLabel extends PureComponent<LabelProps | {}> {
     );
   }
 }
-
+// avoids most right point from overflowing screen border
 function tickInterval(points: Point[]) {
   const length = points.length;
   if (length < 5) {
     return undefined;
   }
-  if (length < 11) {
-    return 1;
+  let interval = Math.ceil(length * 0.1641 - 0.7256);
+  while ((length - 1) % (interval + 1) === 0) {
+    interval++;
   }
-  if (length < 16) {
-    return 2;
-  }
-  if (length < 23) {
-    return 3;
-  }
-  if (length < 29) {
-    return 4;
-  }
-  return 5;
+  return interval;
 }
 
 function Chart() {
